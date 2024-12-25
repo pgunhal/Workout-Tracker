@@ -39,6 +39,7 @@ const Home = () => {
             const { status, user } = data 
             
             setUsername(user)
+            console.log(username)
 
             if(!status) {
                 removeCookie("token")
