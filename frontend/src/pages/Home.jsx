@@ -49,12 +49,15 @@ const Home = () => {
 
         fetchWorkouts()
         verifyCookie()
-    }, [dispatch, cookies, navigate, removeCookie]) //empty dependecncy array makes it first once on first render (2nd arg)
+    }, [dispatch, username, cookies, navigate, removeCookie]) //empty dependecncy array makes it first once on first render (2nd arg)
 
 
     return (
         <div className="home">
             <div className="workouts">
+            <h4>
+          Displaying workouts for <span>{username}</span>
+        </h4>
                 {workouts && workouts.map((workout) => (
                    // <p key={workout._id /*bc must be unique*/}>workout.title</p>
                     <WorkoutDetails key={workout._id} workout={workout} />
