@@ -2,10 +2,28 @@ import React, {useState} from "react"
 import {Link, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { ToastContainer, toast } from "react-toastify"
+// import { useCookies } from "react-cookie";
+
 
 const Login = () => {
 
-    const navigate = useNavigate()
+    // const [cookies, removeCookie] = useCookies(["token"]);
+    const navigate = useNavigate();
+  
+    // useEffect(() => {
+    //   // Only clear stale token on the initial render
+    //   if (cookies.token === undefined || cookies.token === "undefined") {
+    //     console.log("Clearing stale undefined token...");
+    //     removeCookie("token", {   httpOnly: true,       
+    //         // sameSite: "none",      
+    //         // secure: false,         
+    //         path: "/", });
+    //   }
+    // }, [cookies, removeCookie]);
+
+    // console.log("Cookies after at /tempting to remove ON FRONTEND:", cookies);
+
+  
     const [inputValue, setInputValue] = useState({
         email: "",
         password: ""
@@ -34,7 +52,7 @@ const Login = () => {
         e.preventDefault()
         try {
             const { data } = await axios.post(
-                "http://localhost:4000/login",
+                "https://workout-tracker-px08.onrender.com/login",
                 {
                     ...inputValue,
                 },
@@ -45,10 +63,12 @@ const Login = () => {
 
             const { success, message } = data
             if(success) {
+                // console.log("SUCESS")
+                // console.log("Cookies after attempting to remove FROM BACKEND:", cookies);
                 handleSuccess(message)
-                setTimeout(() => {
-                    navigate("/home")
-                }, 1000)
+
+                // console.log("GOING TO HOME")
+                navigate("/home")
             } else {
                 handleError(message)
             }

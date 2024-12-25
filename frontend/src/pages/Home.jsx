@@ -17,7 +17,7 @@ const Home = () => {
 
     useEffect(() => {
         const fetchWorkouts = async () => {
-            const response = await fetch('/api/workouts') //since react does not recognize this locally, it proxies it to localhost:4000
+            const response = await fetch('https://workout-tracker-px08.onrender.com/api/workouts') //since react does not recognize this locally, it proxies it to localhost:4000
             const json = await response.json() //array of workout objects
 
             if(response.ok) { //dont do if there is some error with the response
@@ -28,28 +28,29 @@ const Home = () => {
 
         const verifyCookie = async () => {
             if(!cookies.token) {
+                console.log("COOKIE NOT FOUND FOR VERIFYCOOKIE")
                 navigate("/")
             }
             const { data } = await axios.post(
-                "http://localhost:4000",
+                "https://workout-tracker-px08.onrender.com/verify",
                 {},
                 { withCredentials: true}
             )
 
             const { status, user } = data 
             
-            setUsername(user)
-            console.log(username)
-
             if(!status) {
-                removeCookie("token")
-                navigate("/")
+               // console.log("RENAGIVATIE")
+                // removeCookie("token")
+                //navigate("/")
             }
+            setUsername(user);
+
         }
 
         fetchWorkouts()
         verifyCookie()
-    }, [dispatch, username, cookies, navigate, removeCookie]) //empty dependecncy array makes it first once on first render (2nd arg)
+    }, [dispatch, cookies, navigate, removeCookie]) //empty dependecncy array makes it first once on first render (2nd arg)
 
 
     return (

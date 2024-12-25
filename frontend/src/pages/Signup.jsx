@@ -35,7 +35,7 @@ const Signup = () => {
         e.preventDefault()
         try {
             const { data } = await axios.post(
-                "http://localhost:4000/signup",
+                "https://workout-tracker-px08.onrender.com/signup",
                 {
                     ...inputValue,
                 },
