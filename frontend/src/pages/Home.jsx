@@ -28,7 +28,7 @@ const Home = () => {
 
         const verifyCookie = async () => {
             if(!cookies.token) {
-                navigate("/login")
+                navigate("/")
             }
             const { data } = await axios.post(
                 "http://localhost:4000",
@@ -43,7 +43,7 @@ const Home = () => {
 
             if(!status) {
                 removeCookie("token")
-                navigate("/login")
+                navigate("/")
             }
         }
 
